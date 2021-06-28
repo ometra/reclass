@@ -95,7 +95,14 @@ def cli():
             else:
                 groups.update(apps)
 
+            # Add _meta top-level key to improve performance
+            # See https://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html#tuning-the-external-inventory-script
+            hostvars = {}
+            for (node, node_data) in iteritems(data['nodes']):
+                hostvars[node] = node_data['parameters']
+
             data = groups
+            data['_meta'] = {'hostvars': hostvars}
 
         print(output(data, options.output, options.pretty_print, options.no_refs))
 
