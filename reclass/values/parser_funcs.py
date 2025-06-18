@@ -14,6 +14,8 @@ import functools
 import pyparsing as pp
 import six
 
+collections.Iterable = collections.abc.Iterable
+
 tags = enum.Enum('Tags', ['STR', 'REF', 'INV'])
 
 _OBJ = 'OBJ'
